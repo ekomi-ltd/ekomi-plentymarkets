@@ -1,0 +1,25 @@
+{
+    "version": "1.0.0",
+    "name": "EkomiIntegration",
+    "marketplaceName": {
+        "de": "EkomiIntegration",
+        "en": "EkomiIntegration"
+    },
+    "license": "AGPL-3.0",
+    "pluginIcon": "plugin.png",
+    "price": 0.00,
+    "description": "This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews.",
+    "shortDescription": {
+        "de": "",
+        "en": ""
+    },
+    "author": "Sandor Barics",
+    "authorIcon": "icon_author.png",
+    "email": "sbarics@ekomi.de",
+    "keywords": ["plugins", "orders export", "ekomi", "integration"],
+    "isClosedSource": true,
+    "namespace": "EkomiIntegration",
+
+    "type": "general",
+    "serviceProvider": "EkomiIntegration\\Providers\\EkomiIntegrationServiceProvider"
+}
