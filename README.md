@@ -26,7 +26,7 @@ eKomi Plugin for plentymarkets allows you to integrate your plentymarkets shop 4
 - plentymarkets version 7.0.0
 
 ## Known issues
-- No any know issue  
+- Not any known issue  
 
 ## Guides
 1. [User Guide](https://ekomi01.atlassian.net/wiki/display/PD/Plentymarkets+-+Official+eKomi+Plugins)
