@@ -94,6 +94,10 @@ Follow these steps to install the plugin.
 
 - A complete working plugin
 
+### v1.0.1 (03-07-2017)
+
+- Exception handling error fixed
+
 ## Authors
 
 * **eKomi** - [github profile](https://github.com/ekomi-ltd)

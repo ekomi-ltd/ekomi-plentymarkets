@@ -1,6 +1,12 @@
 # Release Notes for EkomiIntegration
 
-## 1.0.0 (2017-03-15)
+### v1.0.0 (16-04-2017)
+
+- A complete working plugin
+
+### v1.0.1 (03-07-2017)
+
+- Exception handling error fixed
 
 ### Features
 
