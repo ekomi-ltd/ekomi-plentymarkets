@@ -314,7 +314,7 @@ class EkomiHelper {
     public function toMySqlDateTime($date) {
         try {
             return date('d-m-Y H:i:s', strtotime($date));
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             echo $exc->getTraceAsString();
             return $date;
         }
