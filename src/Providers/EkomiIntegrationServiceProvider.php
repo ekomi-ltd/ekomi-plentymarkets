@@ -22,6 +22,7 @@ class EkomiIntegrationServiceProvider extends ServiceProvider {
         // register crons
         //EVERY_FIFTEEN_MINUTES | DAILY
         $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'cron registered :)');
+        
         $container->add(CronContainer::EVERY_FIFTEEN_MINUTES, OrdersExportCron::class);
     }
 
