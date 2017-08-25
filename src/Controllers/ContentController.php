@@ -18,8 +18,8 @@ class ContentController extends Controller {
      */
     public function sendOrdersToEkomi(Twig $twig, EkomiServices $service): string {
 
-        $service->sendOrdersData(7);
-
+        //$service->sendOrdersData(7);
+        echo 'test :P)';
         return $twig->render('EkomiIntegration::content.hello');
     }
 
