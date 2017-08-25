@@ -20,8 +20,9 @@ class ContentController extends Controller {
      */
     public function sendOrdersToEkomi(Twig $twig, EkomiServices $service): string {
         $this->getLogger(__FUNCTION__)->error('EkomiIntegration::ContentController.sendOrdersToEkomi', 'routeHiited');
-        //$service->sendOrdersData(7);
-        echo 'test :P)';
+       echo 'test :P)';
+        $service->sendOrdersData(7);
+        
         return $twig->render('EkomiIntegration::content.hello');
     }
 
