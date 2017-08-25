@@ -20,6 +20,6 @@
     "isClosedSource": true,
     "namespace": "EkomiIntegration",
 
-    "type": "general",
+    "type": "template",
     "serviceProvider": "EkomiIntegration\\Providers\\EkomiIntegrationServiceProvider"
 }
