@@ -8,6 +8,11 @@
 
 - Exception handling error fixed
 
+### v1.0.2 (31-08-2017)
+
+- Plugin type changed from "general" to "export"
+- Plenty ID field in configuration added
+
 ### Features
 
 + Collect order and/or product base Reviews

@@ -28,21 +28,27 @@ class ConfigHelper {
 
     public function getShopId() {
         $shopId = $this->config->get('EkomiIntegration.shop_id');
-        
+
         return preg_replace('/\s+/', '', $shopId);
     }
 
     public function getPlentyIDs() {
+        $plentyIDs = false;
+
         $IDs = $this->config->get('EkomiIntegration.plenty_IDs');
-        
+
         $IDs = preg_replace('/\s+/', '', $IDs);
-        
-        return explode(',',$IDs);
+
+        if (!empty($IDs)) {
+            $plentyIDs = explode(',', $IDs);
+        }
+
+        return $plentyIDs;
     }
 
     public function getShopSecret() {
         $secret = $this->config->get('EkomiIntegration.shop_secret');
-        
+
         return preg_replace('/\s+/', '', $secret);
     }
 
