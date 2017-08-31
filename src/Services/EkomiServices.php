@@ -79,7 +79,7 @@ class EkomiServices {
 
                             $plentyID = $order['plentyId'];
 
-                            if (empty($plentyIDs) || in_array($plentyID, $plentyIDs)) {
+                            if (($plentyIDs && empty($plentyIDs)) || in_array($plentyID, $plentyIDs)) {
                                 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 

@@ -16,7 +16,7 @@
     {
         "tab": "Configuration",
         "key": "plenty_IDs",
-        "label": "Stores Plenty ID",
+        "label": "Client Store Plenty IDs (comma separated)",
         "type": "text",
         "default": ""
     },
