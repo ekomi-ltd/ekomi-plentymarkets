@@ -10,10 +10,10 @@
     "price": 0.00,
     "description": "This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews.",
     "shortDescription": {
-        "de": "This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews.",
-        "en": "This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews."
+        "de": "",
+        "en": ""
     },
-    "categories"        : ["3521"],
+    "categories": ["3521"],
     "author": "Sandor Barics",
     "authorIcon": "icon_author.png",
     "email": "sbarics@ekomi.de",
@@ -21,6 +21,6 @@
     "isClosedSource": true,
     "namespace": "EkomiIntegration",
 
-    "type": "template",
+    "type": "export",
     "serviceProvider": "EkomiIntegration\\Providers\\EkomiIntegrationServiceProvider"
 }

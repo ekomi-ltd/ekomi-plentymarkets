@@ -15,6 +15,13 @@
     },
     {
         "tab": "Configuration",
+        "key": "plenty_IDs",
+        "label": "Stores Plenty ID",
+        "type": "text",
+        "default": ""
+    },
+    {
+        "tab": "Configuration",
         "key": "mode",
         "label": "Mode",
         "type": "dropdown",

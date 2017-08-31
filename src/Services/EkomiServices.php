@@ -44,9 +44,9 @@ class EkomiServices {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
-        
-        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', $server_output);
-        
+
+        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', 'server_output:' . $server_output);
+
         if ($server_output == 'Access denied') {
             return FALSE;
         } else {
@@ -64,6 +64,8 @@ class EkomiServices {
 
                 $orderStatuses = $this->configHelper->getOrderStatus();
 
+                $plentyIDs = $this->configHelper->getPlentyIDs();
+
                 $pageNum = 1;
 
                 $fetchOrders = TRUE;
@@ -75,22 +77,28 @@ class EkomiServices {
                     if (!empty($orders)) {
                         foreach ($orders as $key => $order) {
 
-                            $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
+                            $plentyID = $order['plentyId'];
 
-                            $orderId = $order['id'];
-                            $statusId = $order['statusId'];
+                            if (empty($plentyIDs) || in_array($plentyID, $plentyIDs)) {
+                                
+                                $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
-                            $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
+                                $orderId = $order['id'];
 
-                            if ($orderDaysDiff <= $daysDiff) {
+                                $statusId = $order['statusId'];
 
-                                if (in_array($statusId, $orderStatuses)) {
-                                    $postVars = $this->ekomiHelper->preparePostVars($order);
-                                    // sends order data to eKomi
-                                    $this->addRecipient($postVars, $orderId);
+                                $orderDaysDiff = $this->ekomiHelper->daysDifference($updatedAt);
+
+                                if ($orderDaysDiff <= $daysDiff) {
+
+                                    if (in_array($statusId, $orderStatuses)) {
+                                        $postVars = $this->ekomiHelper->preparePostVars($order);
+                                        // sends order data to eKomi
+                                        $this->addRecipient($postVars, $orderId);
+                                    }
+
+                                    $flag = TRUE;
                                 }
-
-                                $flag = TRUE;
                             }
                         }
                     }
@@ -125,7 +133,7 @@ class EkomiServices {
              */
             $apiUrl = 'https://srr.ekomi.com/add-recipient';
 
-            $boundary = md5(''.time());
+            $boundary = md5('' . time());
             /*
              * Send the curl call
              */
@@ -139,8 +147,13 @@ class EkomiServices {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $postVars);
                 $exec = curl_exec($ch);
                 curl_close($ch);
-                $logMessage .= $exec;
-                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
+
+                $decodedResp = json_decode($exec);
+
+                if ($decodedResp && $decodedResp->status == 'error') {
+                    $logMessage .= $exec;
+                    $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
+                }
                 return TRUE;
             } catch (\Exception $e) {
                 $logMessage .= $e->getMessage();
