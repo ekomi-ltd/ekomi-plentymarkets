@@ -74,6 +74,7 @@ Follow these steps to install the plugin.
  
   - Enable / Disable The Plugin
   - Enable / Disable Product Reviews ( if enabled, product attributes will also be sent to eKomi i.e.  product id, name, image and URL )
+  - Insert Client Store Plenty IDs. Multiple comma separated Plenty ID can also be added.(optional)
   - Select Mode. (for SMS, mobile number format should be according E164)
   - Insert your Interface Shop Id
   - Insert your Interface Shop Secret
@@ -97,6 +98,11 @@ Follow these steps to install the plugin.
 ### v1.0.1 (03-07-2017)
 
 - Exception handling error fixed
+
+### v1.0.2 (31-08-2017)
+
+- Plugin type changed from "general" to "export"
+- Plenty ID field in configuration added
 
 ## Authors
 
