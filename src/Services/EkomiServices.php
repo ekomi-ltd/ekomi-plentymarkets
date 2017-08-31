@@ -99,6 +99,8 @@ class EkomiServices {
 
                                     $flag = TRUE;
                                 }
+                            } else{
+                                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'plenty ID not matched :'.$plentyID .'|'. implode(',', $plentyIDs));
                             }
                         }
                     }
