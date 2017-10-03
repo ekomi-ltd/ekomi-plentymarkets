@@ -84,5 +84,18 @@
                     "14": "[14] Sammelgutschrift"
                 },
         "default": "7"
+    },
+    {
+        "tab": "Configuration",
+        "key": "referrer_id",
+        "label": "Referrers",
+        "type": "multi_select",
+        "possibleValues":
+        {
+            "1": "[1] Test 1",
+            "2": "[2] Test 2",
+            "3": "[3] Test 3"
+        },
+        "default": "3"
     }
 ]
