@@ -79,8 +79,9 @@ class EkomiServices {
 
                             $plentyID = $order['plentyId'];
 
-                            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'orderId :'. $order['id']);
-                            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'referrerId :'. $order['referrerId']);
+                            $this->getLogger(__FUNCTION__)->error(
+                                'EkomiIntegration::EkomiServices.sendOrdersData',
+                                'orderId :'. $order['id'] . ', referrerId :'. $order['referrerId'] . ', referrer :'. $order['referrer']);
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
                                 
