@@ -78,6 +78,7 @@ class EkomiServices {
                         foreach ($orders as $key => $order) {
 
                             $plentyID = $order['plentyId'];
+                            
 
                             $this->getLogger(__FUNCTION__)->error(
                                 'EkomiIntegration::EkomiServices.sendOrdersData',
