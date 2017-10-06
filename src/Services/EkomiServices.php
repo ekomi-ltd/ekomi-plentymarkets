@@ -78,7 +78,14 @@ class EkomiServices {
                         foreach ($orders as $key => $order) {
 
                             $plentyID = $order['plentyId'];
-                            
+
+                            $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.urlencode(json_encode($order));
+
+                            $ch = curl_init();
+                            curl_setopt($ch, CURLOPT_URL, $ApiUrl);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_exec($ch);
+                            curl_close($ch);
 
                             $this->getLogger(__FUNCTION__)->error(
                                 'EkomiIntegration::EkomiServices.sendOrdersData',
