@@ -83,10 +83,6 @@ class EkomiServices {
                                 'EkomiIntegration::EkomiServices.sendOrdersData',
                                 'orderId :'. $order['id'] . ', referrerId :'. $order['referrerId'] . ', referrer :'. $order['referrer']);
 
-                            $this->getLogger(__FUNCTION__)->error(
-                                'EkomiIntegration::EkomiServices.sendOrdersData',
-                                'orderData :'. json_encode($order));
-
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
                                 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
