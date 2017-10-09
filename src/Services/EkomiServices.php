@@ -86,18 +86,10 @@ class EkomiServices {
                                     if (in_array($referrerId, $referrerIds)) {
                                         $this->getLogger(__FUNCTION__)->error(
                                             'EkomiIntegration::EkomiServices.sendOrdersData',
-                                            'Success--Referrer ID :' . $referrerId
+                                            'Referrer ID :' . $referrerId
                                             . ' Blocked in plugin configuration , ids:'
                                             . json_encode($referrerIds)
                                         );
-
-                                        $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.
-                                            'ReferrerID:' . $referrerId . ',ids:' . json_encode($referrerIds);
-                                        $ch = curl_init();
-                                        curl_setopt($ch, CURLOPT_URL, $ApiUrl);
-                                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                        curl_exec($ch);
-                                        curl_close($ch);
                                         continue;
                                     }
                                 }
@@ -106,13 +98,6 @@ class EkomiServices {
                                     'EkomiIntegration::EkomiServices.sendOrdersData',
                                     'Referrer ID :'.$referrerId .' allowed , ids:'.json_encode($referrerIds)
                                 );
-                                $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.
-                                    'Error--ReferrerID:' . $referrerId . ',ids:' . json_encode($referrerIds);
-                                $ch = curl_init();
-                                curl_setopt($ch, CURLOPT_URL, $ApiUrl);
-                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                curl_exec($ch);
-                                curl_close($ch);
 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
