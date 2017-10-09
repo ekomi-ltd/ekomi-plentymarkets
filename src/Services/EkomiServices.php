@@ -82,10 +82,10 @@ class EkomiServices {
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
 
-                                if (!empty($referrerIds) && in_array($referrerId, $referrerIds)) {
+                                if (sizeof($referrerIds) > 0 && in_array($referrerId, $referrerIds)) {
                                     $this->getLogger(__FUNCTION__)->error(
                                         'EkomiIntegration::EkomiServices.sendOrdersData',
-                                        'Referrer ID :'.$referrerId .' Blocked in plugin , ids:'.json_encode($referrerIds)
+                                        'Referrer ID :'.$referrerId .' Blocked in plugin configuration , ids:'.json_encode($referrerIds)
                                     );
                                     continue;
                                 }
