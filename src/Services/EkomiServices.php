@@ -63,8 +63,8 @@ class EkomiServices {
             if ($this->validateShop()) {
 
                 $orderStatuses = $this->configHelper->getOrderStatus();
-
-                $plentyIDs = $this->configHelper->getPlentyIDs();
+                $referrerIds   = $this->configHelper->getReferrerIds();
+                $plentyIDs     = $this->configHelper->getPlentyIDs();
 
                 $pageNum = 1;
 
@@ -77,22 +77,23 @@ class EkomiServices {
                     if (!empty($orders)) {
                         foreach ($orders as $key => $order) {
 
-                            $plentyID = $order['plentyId'];
-
-                            //$ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.urlencode(json_encode($order));
-                            $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.$order['orderItems'][0]['referrerId'].'-----'.$order['orderItems'];
-
-                            $ch = curl_init();
-                            curl_setopt($ch, CURLOPT_URL, $ApiUrl);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            curl_exec($ch);
-                            curl_close($ch);
-
-                            $this->getLogger(__FUNCTION__)->error(
-                                'EkomiIntegration::EkomiServices.sendOrdersData',
-                                'orderId :'. $order['id'] . ', referrerId :'. $order['orderItems'][0]['referrerId']);
+                            $plentyID   = $order['plentyId'];
+                            $referrerId = $order['orderItems'][0]['referrerId'];
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
+
+                                if (in_array($referrerId, $referrerIds)) {
+                                    $this->getLogger(__FUNCTION__)->error(
+                                        'EkomiIntegration::EkomiServices.sendOrdersData',
+                                        'Referrer ID :'.$referrerId .' Blocked in plugin configuration'
+                                    );
+                                    continue;
+                                }
+
+                                $this->getLogger(__FUNCTION__)->info(
+                                    'EkomiIntegration::EkomiServices.sendOrdersData',
+                                    'Referrer ID :'.$referrerId .' Not Blocked'
+                                );
 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
@@ -105,6 +106,7 @@ class EkomiServices {
                                 if ($orderDaysDiff <= $daysDiff) {
 
                                     if (in_array($statusId, $orderStatuses)) {
+
                                         $postVars = $this->ekomiHelper->preparePostVars($order);
                                         // sends order data to eKomi
                                         $this->addRecipient($postVars, $orderId);
@@ -112,6 +114,7 @@ class EkomiServices {
 
                                     $flag = TRUE;
                                 }
+
                             } else{
                                 $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'plenty ID not matched :'.$plentyID .'|'. implode(',', $plentyIDs));
                             }
