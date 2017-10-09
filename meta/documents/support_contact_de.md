@@ -3,3 +3,7 @@
 
 ## Email
 [sbarics@ekomi.de](sbarics@ekomi.de)
+
+## Phone
+ 
++49 30 2000 444 999
