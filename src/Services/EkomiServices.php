@@ -80,7 +80,7 @@ class EkomiServices {
                             $plentyID = $order['plentyId'];
 
                             //$ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.urlencode(json_encode($order));
-                            $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.$order['"orderItems"'][0]['referrerId']; 
+                            $ApiUrl = 'http://plugindev.coeus-solutions.de/insert.php?value='.$order['orderItems'][0]['referrerId'].'-----'.$order['orderItems'];
 
                             $ch = curl_init();
                             curl_setopt($ch, CURLOPT_URL, $ApiUrl);
@@ -90,7 +90,7 @@ class EkomiServices {
 
                             $this->getLogger(__FUNCTION__)->error(
                                 'EkomiIntegration::EkomiServices.sendOrdersData',
-                                'orderId :'. $order['id'] . ', referrerId :'. $order['"orderItems"'][0]['referrerId']);
+                                'orderId :'. $order['id'] . ', referrerId :'. $order['orderItems'][0]['referrerId']);
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
                                 
