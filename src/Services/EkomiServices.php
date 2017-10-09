@@ -93,7 +93,7 @@ class EkomiServices {
                                 'orderId :'. $order['id'] . ', referrerId :'. $order['orderItems'][0]['referrerId']);
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
-                                
+
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
                                 $orderId = $order['id'];
