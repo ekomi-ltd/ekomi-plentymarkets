@@ -82,7 +82,7 @@ class EkomiServices {
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
 
-                                if (sizeof($referrerIds) > 0 && in_array($referrerId, $referrerIds)) {
+                                if (!empty($referrerIds) && in_array($referrerId, $referrerIds, true)) {
                                     $this->getLogger(__FUNCTION__)->error(
                                         'EkomiIntegration::EkomiServices.sendOrdersData',
                                         'Referrer ID :'.$referrerId .' Blocked in plugin configuration , ids:'.json_encode($referrerIds)
@@ -90,9 +90,9 @@ class EkomiServices {
                                     continue;
                                 }
 
-                                $this->getLogger(__FUNCTION__)->info(
+                                $this->getLogger(__FUNCTION__)->error(
                                     'EkomiIntegration::EkomiServices.sendOrdersData',
-                                    'Referrer ID :'.$referrerId .' Not Blocked , ids:'.json_encode($referrerIds)
+                                    'Referrer ID :'.$referrerId .' allowed , ids:'.json_encode($referrerIds)
                                 );
 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
