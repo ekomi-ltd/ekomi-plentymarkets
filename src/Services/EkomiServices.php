@@ -85,14 +85,14 @@ class EkomiServices {
                                 if (in_array($referrerId, $referrerIds)) {
                                     $this->getLogger(__FUNCTION__)->error(
                                         'EkomiIntegration::EkomiServices.sendOrdersData',
-                                        'Referrer ID :'.$referrerId .' Blocked in plugin configuration'
+                                        'Referrer ID :'.$referrerId .' Blocked in plugin , ids:'.json_encode($referrerIds)
                                     );
                                     continue;
                                 }
 
                                 $this->getLogger(__FUNCTION__)->info(
                                     'EkomiIntegration::EkomiServices.sendOrdersData',
-                                    'Referrer ID :'.$referrerId .' Not Blocked'
+                                    'Referrer ID :'.$referrerId .' Not Blocked , ids:'.json_encode($referrerIds)
                                 );
 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
