@@ -82,7 +82,7 @@ class EkomiServices {
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
 
-                                if(!empty($referrerIds) && sizeof($referrerIds) > 0) {
+                                if(!empty($referrerIds)) {
                                     if (in_array($referrerId, $referrerIds)) {
                                         $this->getLogger(__FUNCTION__)->error(
                                             'EkomiIntegration::EkomiServices.sendOrdersData',
