@@ -9,7 +9,7 @@
     "pluginIcon": "icon_plugin_xs.png",
     "price": 0.00,
     "description": "This plugin allows you to integrate your Plentymarkets Store easily with eKomi system to collect verified reviews. 
-Before installing and activating your plugin, please contact support@ekomi.de, this is necessary to ensure everything has been set up correctly and activated from eKomi’s side.",
+    Before installing and activating your plugin, please contact support@ekomi.de, this is necessary to ensure everything has been set up correctly and activated from eKomi’s side.",
     "shortDescription": {
         "de": "Diese plugin erlaubt es Ihnen Ihren Plentymarkets Store eShop ganz einfach im eKomi System zu integrieren um verifizierte Rezensionen zu sammeln.",
         "en": "This plugin allows you to integrate your Plentymarkets shop easily with eKomi system to collect verified reviews."
@@ -17,7 +17,8 @@ Before installing and activating your plugin, please contact support@ekomi.de, t
     "categories": ["3521"],
     "author": "eKomi Ltd",
     "authorIcon": "icon_author_xs.png",
-    "email": "sbarics@ekomi.de",
+    "email": "support@ekomi.zendesk.com",
+    "phone": "+49 3047376382",
     "keywords": ["plugins", "orders export", "ekomi", "integration"],
     "isClosedSource": true,
     "namespace": "EkomiIntegration",
