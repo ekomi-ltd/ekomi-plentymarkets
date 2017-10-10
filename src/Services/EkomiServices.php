@@ -63,8 +63,8 @@ class EkomiServices {
             if ($this->validateShop()) {
 
                 $orderStatuses = $this->configHelper->getOrderStatus();
-
-                $plentyIDs = $this->configHelper->getPlentyIDs();
+                $referrerIds   = $this->configHelper->getReferrerIds();
+                $plentyIDs     = $this->configHelper->getPlentyIDs();
 
                 $pageNum = 1;
 
@@ -77,10 +77,20 @@ class EkomiServices {
                     if (!empty($orders)) {
                         foreach ($orders as $key => $order) {
 
-                            $plentyID = $order['plentyId'];
+                            $plentyID   = $order['plentyId'];
+                            $referrerId = $order['orderItems'][0]['referrerId'];
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
-                                
+
+                                if (!empty($referrerIds) && in_array((string)$referrerId, $referrerIds)) {
+                                    $this->getLogger(__FUNCTION__)->error(
+                                        'EkomiIntegration::EkomiServices.sendOrdersData',
+                                        'Referrer ID :' . $referrerId .
+                                        ' Blocked in plugin configuration.'
+                                    );
+                                    continue;
+                                }
+
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
                                 $orderId = $order['id'];
@@ -92,6 +102,7 @@ class EkomiServices {
                                 if ($orderDaysDiff <= $daysDiff) {
 
                                     if (in_array($statusId, $orderStatuses)) {
+
                                         $postVars = $this->ekomiHelper->preparePostVars($order);
                                         // sends order data to eKomi
                                         $this->addRecipient($postVars, $orderId);
@@ -99,6 +110,7 @@ class EkomiServices {
 
                                     $flag = TRUE;
                                 }
+
                             } else{
                                 $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'plenty ID not matched :'.$plentyID .'|'. implode(',', $plentyIDs));
                             }
