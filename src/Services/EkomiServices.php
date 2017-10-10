@@ -82,59 +82,14 @@ class EkomiServices {
 
                             if (!$plentyIDs || in_array($plentyID, $plentyIDs)) {
 
-                                if(!empty($referrerIds)) {
-                                    if (in_array($referrerId, $referrerIds)) {
-                                        $this->getLogger(__FUNCTION__)->error(
-                                            'EkomiIntegration::EkomiServices.sendOrdersData',
-                                            'In Case 1  Referrer ID :' . $referrerId
-                                            . ' Blocked in plugin configuration , ids:'
-                                            . json_encode($referrerIds)
-                                        );
-                                        //continue;
-                                    }
+                                if (!empty($referrerIds) && in_array((string)$referrerId, $referrerIds)) {
+                                    $this->getLogger(__FUNCTION__)->error(
+                                        'EkomiIntegration::EkomiServices.sendOrdersData',
+                                        'Referrer ID :' . $referrerId .
+                                        ' Blocked in plugin configuration.'
+                                    );
+                                    continue;
                                 }
-
-                                if(!empty($referrerIds)) {
-                                    if (in_array((string)$referrerId, $referrerIds)) {
-                                        $this->getLogger(__FUNCTION__)->error(
-                                            'EkomiIntegration::EkomiServices.sendOrdersData',
-                                            'In Case 2  Referrer ID :' . $referrerId
-                                            . ' Blocked in plugin configuration , ids:'
-                                            . json_encode($referrerIds)
-                                        );
-                                        //continue;
-                                    }
-                                }
-
-                                if(!empty($referrerIds)) {
-                                    if (in_array(0, $referrerIds)) {
-                                        $this->getLogger(__FUNCTION__)->error(
-                                            'EkomiIntegration::EkomiServices.sendOrdersData',
-                                            'In Case 3  Referrer ID :' . 0
-                                            . ' Blocked in plugin configuration , ids:'
-                                            . json_encode($referrerIds)
-                                        );
-                                        //continue;
-                                    }
-                                }
-
-                                if(!empty($referrerIds)) {
-                                    if (in_array('0', $referrerIds)) {
-                                        $this->getLogger(__FUNCTION__)->error(
-                                            'EkomiIntegration::EkomiServices.sendOrdersData',
-                                            'In Case 4  Referrer ID :' . '0'
-                                            . ' Blocked in plugin configuration , ids:'
-                                            . json_encode($referrerIds)
-                                        );
-                                        //continue;
-                                    }
-                                }
-                                continue;
-
-                                $this->getLogger(__FUNCTION__)->error(
-                                    'EkomiIntegration::EkomiServices.sendOrdersData',
-                                    'Referrer ID :'.$referrerId .' allowed , ids:'.json_encode($referrerIds)
-                                );
 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
 
