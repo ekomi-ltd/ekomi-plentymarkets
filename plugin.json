@@ -6,7 +6,7 @@
         "en": "EkomiIntegration"
     },
     "license": "AGPL-3.0",
-    "pluginIcon": "icon_plugin_xs.png",
+    "pluginIcon": "icon_plugin.jpg",
     "price": 0.00,
     "description": "This plugin allows you to integrate your Plentymarkets Store easily with eKomi system to collect verified reviews.",
     "shortDescription": {
@@ -15,7 +15,7 @@
     },
     "categories": ["3521"],
     "author": "eKomi Ltd",
-    "authorIcon": "icon_author_xs.png",
+    "authorIcon": "icon_author.jpg",
     "email": "support@ekomi.zendesk.com",
     "phone": "+49 3047376382",
     "keywords": ["plugins", "orders export", "ekomi", "integration"],
