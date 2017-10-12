@@ -2,4 +2,8 @@
 [http://www.ekomi.de/de/](http://www.ekomi.de/de/)
 
 ## Email
-[sbarics@ekomi.de](sbarics@ekomi.de)
+[support@ekomi.zendesk.com](support@ekomi.zendesk.com)
+
+## Phone
+ 
++49 3047376382
