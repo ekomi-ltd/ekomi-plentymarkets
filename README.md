@@ -104,7 +104,7 @@ Follow these steps to install the plugin.
 - Plugin type changed from "general" to "export"
 - Plenty ID field in configuration added
 
-### v1.1.0 (31-08-2017)
+### v1.1.0 (12-10-2017)
 
 - Added options to filter out specific referrer ids.
 
