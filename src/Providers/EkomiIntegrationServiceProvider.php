@@ -26,7 +26,8 @@ class EkomiIntegrationServiceProvider extends ServiceProvider {
         //EVERY_FIFTEEN_MINUTES | DAILY
         
         //$this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'CronRegistered');
-        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'CronRegistered');
+        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'CronRegistered!');
+        $this->getLogger(__FUNCTION__)->debug('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'CronRegistered');
         $this->getLogger(__FUNCTION__)->info('EkomiIntegration::EkomiIntegrationServiceProvider.boot', 'CronRegistered');
 
         $this
