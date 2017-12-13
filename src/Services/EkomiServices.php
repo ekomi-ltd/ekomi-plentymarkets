@@ -45,9 +45,8 @@ class EkomiServices {
         $server_output = curl_exec($ch);
         curl_close($ch);
 
-        $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.validateShop', 'server_output:' . $server_output);
-
         if ($server_output == 'Access denied') {
+            $this->getLogger(__FUNCTION__)->error('invalid credentials', "url:{$ApiUrl}");
             return FALSE;
         } else {
             return TRUE;
@@ -58,7 +57,7 @@ class EkomiServices {
      * Sends orders data to eKomi System
      */
     public function sendOrdersData($daysDiff = 7) {
-
+    	
         if ($this->configHelper->getEnabled() == 'true') {
             if ($this->validateShop()) {
 
@@ -69,14 +68,16 @@ class EkomiServices {
                 $pageNum = 1;
 
                 $fetchOrders = TRUE;
-
+				
                 while ($fetchOrders) {
                     $orders = $this->orderRepository->getOrders($pageNum);
+                    $this->getLogger(__FUNCTION__)->error('orders-chunk', 'count:'.count($orders));
                     // return $orders;
                     $flag = FALSE;
-                    if (!empty($orders)) {
+                    if ($orders && !empty($orders)) {
                         foreach ($orders as $key => $order) {
-
+                            //$this->getLogger(__FUNCTION__)->error('order', $order);
+                            $orderId = $order['id'];
                             $plentyID   = $order['plentyId'];
                             $referrerId = $order['orderItems'][0]['referrerId'];
 
@@ -84,16 +85,16 @@ class EkomiServices {
 
                                 if (!empty($referrerIds) && in_array((string)$referrerId, $referrerIds)) {
                                     $this->getLogger(__FUNCTION__)->error(
-                                        'EkomiIntegration::EkomiServices.sendOrdersData',
-                                        'Referrer ID :' . $referrerId .
+                                        "OrderID:{$orderId} ,referrerID:{$referrerId}|Blocked",
+                                        'OrderID:' . $orderId .
+                                        '|ReferrerID:' . $referrerId .
                                         ' Blocked in plugin configuration.'
                                     );
+                                    $flag = TRUE;
                                     continue;
                                 }
 
                                 $updatedAt = $this->ekomiHelper->toMySqlDateTime($order['updatedAt']);
-
-                                $orderId = $order['id'];
 
                                 $statusId = $order['statusId'];
 
@@ -109,10 +110,12 @@ class EkomiServices {
                                     }
 
                                     $flag = TRUE;
+                                } else{
+                                    $this->getLogger(__FUNCTION__)->error("orderId:{$orderId}|old", "orderId:{$orderId}|days difference failed $orderDaysDiff <= $daysDiff");
                                 }
 
                             } else{
-                                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'plenty ID not matched :'.$plentyID .'|'. implode(',', $plentyIDs));
+                                $this->getLogger(__FUNCTION__)->error('PlentyID not matched', 'plentyID('.$plentyID .') not matched with PlentyIDs:'. implode(',', $plentyIDs));
                             }
                         }
                     }
@@ -125,10 +128,10 @@ class EkomiServices {
                     }
                 }
             } else {
-                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Shop id or shop secret is not correct!');
+                $this->getLogger(__FUNCTION__)->error('invalid credentials', "shopId:{$this->configHelper->getShopId()},shopSecret:{$this->configHelper->getShopSecret()}");
             }
         } else {
-            $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.sendOrdersData', 'Plugin is not enabled!');
+            $this->getLogger(__FUNCTION__)->error('Plugin not active', 'is_active:'.$this->configHelper->getEnabled());
         }
     }
 
@@ -141,7 +144,7 @@ class EkomiServices {
      */
     public function addRecipient($postVars, $orderId = '') {
         if ($postVars != '') {
-            $logMessage = "OrderID: {$orderId} => ";
+            $logMessage = "OrderID:{$orderId}";
             /*
              * The Api Url
              */
@@ -164,14 +167,12 @@ class EkomiServices {
 
                 $decodedResp = json_decode($exec);
 
-                if ($decodedResp && $decodedResp->status == 'error') {
-                    $logMessage .= $exec;
-                    $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
-                }
+               //if ($decodedResp && $decodedResp->status == 'error') {
+                    $this->getLogger(__FUNCTION__)->error("$logMessage|$decodedResp->status", $logMessage .= $exec);
+                //}
                 return TRUE;
             } catch (\Exception $e) {
-                $logMessage .= $e->getMessage();
-                $this->getLogger(__FUNCTION__)->error('EkomiIntegration::EkomiServices.addRecipient', $logMessage);
+                $this->getLogger(__FUNCTION__)->error("$logMessage|exception", $logMessage .= $e->getMessage());
             }
         }
         return FALSE;

@@ -16,7 +16,7 @@ class ContentController extends Controller {
      * @param Twig $twig
      * @return string
      */
-    public function sendOrdersToEkomi(Twig $twig, EkomiServices $service): string {
+    public function sendOrdersToEkomi(Twig $twig, EkomiServices $service) {
 
         $service->sendOrdersData(7);
 

@@ -15,7 +15,7 @@ class EkomiIntegrationRouteServiceProvider extends RouteServiceProvider
 	 */
 	public function map(Router $router)
 	{
-		$router->get('sendOrdersToEkomi', 'EkomiIntegration\Controllers\ContentController@sendOrdersToEkomi');
+		$router->get('sendOrdersToEkomi','EkomiIntegration\Controllers\ContentController@sendOrdersToEkomi')->addMiddleware(['oauth.cookie', 'oauth',]); 
 	}
 
 }
